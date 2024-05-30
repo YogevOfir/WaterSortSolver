@@ -12,14 +12,12 @@ class WaterSortPuzzle:
 
     def is_solved(self):
         # check if there are self.colors tubes with 1 color and self.empty tubes are empty
-        # return len([tube for tube in self.tubes if not tube]) == self.empty and len([tube for tube in self.tubes if len(set(tube)) == 1]) == self.colors
         return len([tube for tube in self.tubes if not tube]) == self.empty and len([tube for tube in self.tubes if len(set(tube)) == 1]) == self.colors
 
 
 
     def get_possible_moves(self):
         print(self.heuristic())
-        # print(self.heur istic())
         moves = []
         seen_moves = set()
 
@@ -64,27 +62,6 @@ class WaterSortPuzzle:
         for _ in range(count):
             new_tubes[dst_idx].append(new_tubes[src_idx].pop())
         return WaterSortPuzzle(new_tubes, self.size, self.full, self.empty, self.colors)
-
-
-
-    def misplaced_colors(self):
-        res = [0] * self.colors
-        for i, tube in enumerate(self.tubes):
-            if tube:
-                # iterate from the bottom of the tube to the top
-                for j in range(len(tube)-1):
-                    color = tube[j]
-                    while j + 1 < len(tube) and tube[j+1] == color:
-                        j += 1
-                        if j == len(tube) - 1:
-                            break
-                    res[color] += (self.size - j - 1) - (self.size - 1 - len(tube))
-                    
-        heuristic_value = sum(res)
-                
-        return heuristic_value
-
-
 
 
 
